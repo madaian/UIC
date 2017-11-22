@@ -1,0 +1,62 @@
+/* Set height to 100% for body and html to enable the background image to cover the whole page: */
+body, html {
+    height: 100%
+}
+
+/* Fill and center background image */
+html {
+  background: url('assets/bg2.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.main-content {
+    /* Full-screen */
+    height: 100%;
+    /* Enable absolutely positioned elements inside the div (place text) */
+    position: relative;
+    color: #7d3a57;
+    font-family: Georgia, serif;
+    font-size: 25px;
+}
+
+h1 {
+  font-weight: lighter;
+}
+
+.bg-svg {
+  background-image: url('assets/bubble.svg');
+  height: 95%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.notice {
+  position: absolute;
+  top: 0;
+  font-weight: bold;
+}
+
+/* Position text in the bottom-left corner */
+.bottomleft {
+    position: absolute;
+    bottom: 1%;
+    left: 1%;
+    font-size: 15px;
+}
+
+.bottomleft a {
+  color: inherit;
+}
+
+/* Position text in the middle */
+.middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
