@@ -5,6 +5,40 @@ $(document).ready(function(){
   refresh();
 });
 
+/* Show() the contents of the div whose id is passed as a parameter,
+   hide the rest of the "page" divs.
+   Assumes there are max navbar link amount of pages which are in order. */
+function show(shown) {
+  // Loop through each div marked as main content
+  $("div[role='main']").each(function(i) {
+    // Make a string to find the page's link in the navbar
+    var str = ".navbar-nav.ml-auto li:eq(" + i + ")";
+    if ($(this).attr('id') === shown) {
+      // Make the page visible
+      $(this).removeClass('hidden');
+      // Make the corresponding item in the navbar active
+      $(str).addClass('active');
+      // Add info for screen readers about which page is selected
+      $(str + " a").append('<span class="sr-only">(current)</span>');
+    } else {
+      // Other pages are hidden
+      $(this).addClass('hidden');
+      // And their navbar info is removed
+      $(str).removeClass('active');
+      $(str + " a span").remove();
+    }
+  });
+}
+
+// Show or hide the saveSuccess mock alert
+function showAlert(bool) {
+  if (bool) {
+    $("#saveSuccess").removeClass('hidden');
+  } else {
+    $("#saveSuccess").addClass('hidden');
+  }
+}
+
 // Create translation file rows
 function RequestForTranslation(name, status, size, date, deadline) {
   this.name = name;
@@ -23,27 +57,30 @@ var rows = [firstFile, secondFile, thirdFile];
 // The keys for the objects that make up the rows
 var rowKeys = ['name', 'status', 'size', 'date', 'deadline'];
 
-// Recreates the translation table
+/* Recreates the translation table
+  See: sortBy */
 function refresh() {
   // Clear the table
   $('tbody').empty();
   // Insert each row into the table
   var ind = 0;
   rows.forEach(function(item){
-    $('tbody').append('<tr onclick="tableClick(' + ind + ')"><td>' + item.name + '</td><td>' +
+    $('tbody').append('<tr onclick="tableClick(' + ind + '); show(\'Page2\')"><td>' + item.name + '</td><td>' +
     item.status + '</td><td>' + item.size + '</td><td>' + item.date + '</td><td>' +
     item.deadline + '</td></tr>');
     ind++;
   });
 }
 
-// Called when a row in the table is clicked
+// Selects a translation to show when a row in the table is clicked
 function tableClick(index) {
   $("#original .card-text").text("Lorem ipsum I'm text in a foreign language from the file " + rows[index].name + "!");
+  $("#original .card-title").text(rows[index].name);
   $("#translation textarea").text("Lorem ipsum I'm the text from " + rows[index].name + " but already translated (a bit) into your first language!");
 }
 
-// Sort the Array 'rows' based on the chosen column
+/* Sort the Array 'rows' based on the chosen column
+  See: refresh() */
 function sortBy(column) {
   var tmp, sorting, shouldSwitch, i, x, y, key;
   key = rowKeys[column];
@@ -77,32 +114,4 @@ function sortBy(column) {
   } while (sorting);
   // Automatically rearrange the table
   refresh();
-}
-
-/* Code from the individual assignment for checking purposes */
-
-// Set the date we're counting down to
-var countDownDate = new Date().getTime();
-
-function completion() {
-  // Get todays date and time
-  var now = new Date().getTime();
-
-  // Find the distance between now an the count down date
-  var distance =  now - countDownDate;
-
-  // Time calculations
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  var millis = Math.floor(distance % 1000);
-
-  // return the elapsed time in mins & secs
-  return minutes + " min " + seconds + " s " + millis + " ms";
-}
-
-function myClick() {
-  $("#eb").text("Assignment complete!");
-  $('#sentence').text("Congratulations!\nYou finished the assignment in " + completion() + "!");
-  $("#butt").text("😎");
-  $("#butt").attr("disabled", true);
 }
