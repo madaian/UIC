@@ -10,34 +10,31 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="style.css"/>
-    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <!-- Custom scripts -->
     <script type="text/javascript" src="script.js"></script>
   </head>
   <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="#" onclick="show('Page1')">CrowdLang</a>
+        <a class="navbar-brand" href="#" onclick="show('page1')">CrowdLang</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" onclick="show('Page1')" href="#">Requests <span class="sr-only">(current)</span></a>
+            <li id="nav-page1" class="nav-item active">
+              <a class="nav-link" onclick="show('page1')" href="#">Requests <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Item 2</a>
+            <li id="nav-profile" class="nav-item">
+              <a class="nav-link" onclick="show('profile')" href="#">Profile</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Item 3</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Item 4</a>
+            <li id="nav-login" class="nav-item">
+              <a class="nav-link" onclick="show('login'); showAlert('logoutSuccess', true)" href="#">Log out</a>
             </li>
           </ul>
         </div>
@@ -48,8 +45,8 @@
       <h3>This site uses JavaScript, please enable it to continue!</h3>
     </div></noscript>
 
-    <!-- Frontpage; translation table -->
-    <div id="Page1" role="main" class="container-fluid main-content">
+    <!-- Front page; translation table -->
+    <div id="page1" role="main" class="container-fluid main-content">
       <div class="container">
         <h1 class="my-4">Requested Translations</h1>
 
@@ -82,16 +79,16 @@
       </div>
     </div>
 
-    <!-- Fake alert of successful saving -->
-    <div id="saveSuccess" class="alert alert-success hidden container-fluid" role="alert">
-      <strong>Translation saved!</strong>
-      <button type="button" class="close" onclick="showAlert(false)" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
     <!-- Individual translation page -->
-    <div id="Page2" role="main" class="container-fluid main-content hidden">
+    <div id="page2" role="main" class="container-fluid main-content hidden">
       <div class="container">
+        <!-- Fake alert of successful saving -->
+        <div id="saveSuccess" class="alert alert-success hidden" role="alert">
+          Translation saved!
+          <button type="button" class="close" onclick="showAlert('saveSuccess', false)" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
         <div class="row my-4">
           <div class="col-6">
             <h1 class="">Translation</h1>
@@ -114,13 +111,55 @@
                 <h4 class="card-title"><label for="text">Working translation</label></h4>
                 <textarea class="form-control" id="text" rows="10"></textarea>
               </div>
-              <button type="submit" onclick="showAlert(true)" class="btn btn-success">Save</button>
+              <button type="submit" onclick="showAlert('saveSuccess', true)" class="btn btn-success">Save</button>
             </form>
           </div>
         </div>
       </div>
       <div class="container text-center">
-        <button class="btn btn-primary my-5" onclick="show('Page1')">Back</button>
+        <button class="btn btn-primary my-5" onclick="show('page1')">Back</button>
+      </div>
+    </div>
+
+    <!-- Login page -->
+    <div id="login" role="main" class="container-fluid main-content hidden">
+      <div class="container">
+        <!-- Fake alert of failed login -->
+        <div id="loginFail" class="alert alert-danger hidden" role="alert">
+          Invalid username or password
+          <button type="button" class="close" onclick="showAlert('loginFail', false)" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- Fake alert of failed logout -->
+        <div id="logoutSuccess" class="alert alert-primary" role="alert">
+          You have been logged out successfully
+          <button type="button" class="close" onclick="showAlert('logoutSuccess', false)" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <h1 class="my-4">Crowdsourced translation</h1>
+        <h2>Login</h2>
+        <form id="loginform">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter username">
+          </div>
+          <div class="form-group">
+            <label for="passwd">Password</label>
+            <input type="password" class="form-control" id="passwd" placeholder="Enter password">
+          </div>
+          <button class="btn btn-primary" onclick="validateForm()">Log in</button>
+        </form>
+
+      </div>
+    </div>
+
+    <!-- Profile page -->
+    <div id="profile" role="main" class="container-fluid main-content hidden">
+      <div class="container">
+        <h1 class="my-4">Your profile</h1>
       </div>
     </div>
 

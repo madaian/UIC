@@ -9,11 +9,13 @@ $(document).ready(function(){
    hide the rest of the "page" divs.
    Assumes there are max navbar link amount of pages which are in order. */
 function show(shown) {
+  // TODO: hide navbar in login view
   // Loop through each div marked as main content
   $("div[role='main']").each(function(i) {
     // Make a string to find the page's link in the navbar
-    var str = ".navbar-nav.ml-auto li:eq(" + i + ")";
-    if ($(this).attr('id') === shown) {
+    var id = $(this).attr('id');
+    var str = ".navbar-nav.ml-auto #nav-" + id;
+    if (id === shown) {
       // Make the page visible
       $(this).removeClass('hidden');
       // Make the corresponding item in the navbar active
@@ -21,8 +23,11 @@ function show(shown) {
       // Add info for screen readers about which page is selected
       $(str + " a").append('<span class="sr-only">(current)</span>');
     } else {
-      // Other pages are hidden
+      // Other pages and their alerts are hidden
       $(this).addClass('hidden');
+      $(this).find('.alert').each(function() {
+        $(this).addClass('hidden');
+      });
       // And their navbar info is removed
       $(str).removeClass('active');
       $(str + " a span").remove();
@@ -30,12 +35,29 @@ function show(shown) {
   });
 }
 
-// Show or hide the saveSuccess mock alert
-function showAlert(bool) {
+// Show or hide the mock alerts
+function showAlert(id, bool) {
+  var element = $("#" + id);
   if (bool) {
-    $("#saveSuccess").removeClass('hidden');
+    element.removeClass('hidden');
   } else {
-    $("#saveSuccess").addClass('hidden');
+    element.addClass('hidden');
+  }
+}
+
+/* "Validate" login credentials.
+   Hint for text fields from JS school:
+   https://www.w3schools.com/js/tryit.asp?filename=tryjs_validation_js */
+function validateForm() {
+  var x = $("#loginform #username").val();
+  var y = $("#loginform #passwd").val();
+  if (x == "" || y == "") {
+    showAlert('logoutSuccess', false);
+    showAlert('loginFail', true);
+  } else {
+    // Reset the form fields and navigate to the front page
+    $("#loginform")[0].reset();
+    show('page1');
   }
 }
 
@@ -65,7 +87,7 @@ function refresh() {
   // Insert each row into the table
   var ind = 0;
   rows.forEach(function(item){
-    $('tbody').append('<tr onclick="tableClick(' + ind + '); show(\'Page2\')"><td>' + item.name + '</td><td>' +
+    $('tbody').append('<tr onclick="tableClick(' + ind + '); show(\'page2\')"><td>' + item.name + '</td><td>' +
     item.status + '</td><td>' + item.size + '</td><td>' + item.date + '</td><td>' +
     item.deadline + '</td></tr>');
     ind++;
@@ -74,11 +96,6 @@ function refresh() {
 
 // Selects a translation to show when a row in the table is clicked
 function tableClick(index) {
-    this.onclick = function () {
-	location.href = "translate.html";
-    };
-    
-    
   $("#original .card-text").text("Lorem ipsum I'm text in a foreign language from the file " + rows[index].name + "!");
   $("#original .card-title").text(rows[index].name);
   $("#translation textarea").text("Lorem ipsum I'm the text from " + rows[index].name + " but already translated (a bit) into your first language!");
