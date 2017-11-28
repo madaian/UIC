@@ -74,6 +74,11 @@ function refresh() {
 
 // Selects a translation to show when a row in the table is clicked
 function tableClick(index) {
+    this.onclick = function () {
+	location.href = "translate.html";
+    };
+    
+    
   $("#original .card-text").text("Lorem ipsum I'm text in a foreign language from the file " + rows[index].name + "!");
   $("#original .card-title").text(rows[index].name);
   $("#translation textarea").text("Lorem ipsum I'm the text from " + rows[index].name + " but already translated (a bit) into your first language!");
