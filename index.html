@@ -46,9 +46,50 @@
     </div></noscript>
 
     <!-- Front page; translation table -->
-    <div id="page1" role="main" class="container-fluid main-content">
+    <div id="page1" role="main" class="container-fluid main-content hidden">
       <div class="container">
-        <h1 class="my-4">Requested Translations</h1>
+        <!-- Fake alert of successful submission -->
+        <div id="submitSuccess" class="alert alert-success hidden" role="alert">
+          <strong>Translation submitted!</strong> You can edit your translation and submit it again from the translation page
+          <button type="button" class="close" onclick="showAlert('submitSuccess', false)" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="row my-4">
+          <div class="col-6">
+            <h1>Requested Translations</h1>
+          </div>
+          <div class="col-6 text-right">
+            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#help-main-modal">
+              Help
+            </button>
+          </div>
+        </div>
+
+        <!-- Front page help modal -->
+        <div class="modal fade" id="help-main-modal" tabindex="-1" role="dialog" aria-labelledby="help-main-modal-label" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="help-main-modal-label">Translations - help</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p><h6>Select a document</h6> To select a document to translate, click on the corresponding row of the table.</p>
+                <p><h6>Sort translations</h6> To sort the translations, click on a Sort button in the table header.</p>
+                <p><h6>Select a language</h6>
+                  To select the language of the original document, click on the Original language button above the table.</br>
+                  To change the target language, change the language settings in your user profile.
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="dropdown mb-3">
           <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -94,7 +135,7 @@
             <h1 class="">Translation</h1>
           </div>
           <div class="col-6 text-right">
-            <button type="button" class="btn btn-info btn-sm">Help</button>
+            <button id="help-trans" type="button" class="btn btn-info btn-sm">Help</button>
           </div>
         </div>
         <div class="card-deck">
@@ -106,12 +147,19 @@
           </div>
 
           <div class="card" id="translation">
-            <form>
+            <form onsubmit="return false">
               <div class="form-group">
                 <h4 class="card-title"><label for="text">Working translation</label></h4>
                 <textarea class="form-control" id="text" rows="10"></textarea>
               </div>
-              <button type="submit" onclick="showAlert('saveSuccess', true)" class="btn btn-success">Save</button>
+              <div class="row">
+                <div class="col">
+                  <button id="save" type="submit" onclick="" class="btn btn-primary">Save</button>
+                </div>
+                <div class="col text-right">
+                  <button type="submit" onclick="show('page1'); showAlert('submitSuccess', true)" class="btn btn-success">Submit</button>
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -122,7 +170,7 @@
     </div>
 
     <!-- Login page -->
-    <div id="login" role="main" class="container-fluid main-content hidden">
+    <div id="login" role="main" class="container-fluid main-content">
       <div class="container">
         <!-- Fake alert of failed login -->
         <div id="loginFail" class="alert alert-danger hidden" role="alert">
@@ -132,7 +180,7 @@
           </button>
         </div>
         <!-- Fake alert of failed logout -->
-        <div id="logoutSuccess" class="alert alert-primary" role="alert">
+        <div id="logoutSuccess" class="alert alert-primary hidden" role="alert">
           You have been logged out successfully
           <button type="button" class="close" onclick="showAlert('logoutSuccess', false)" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -141,7 +189,7 @@
 
         <h1 class="my-4">Crowdsourced translation</h1>
         <h2>Login</h2>
-        <form id="loginform">
+        <form id="loginform" onsubmit="return false">
           <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" placeholder="Enter username">
@@ -150,7 +198,7 @@
             <label for="passwd">Password</label>
             <input type="password" class="form-control" id="passwd" placeholder="Enter password">
           </div>
-          <button class="btn btn-primary" onclick="validateForm()">Log in</button>
+          <button type="submit" class="btn btn-primary" onclick="validateForm()">Log in</button>
         </form>
 
       </div>

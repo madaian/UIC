@@ -62,22 +62,23 @@ function validateForm() {
 }
 
 // Create translation file rows
-function RequestForTranslation(name, status, size, date, deadline) {
+function RequestForTranslation(name, status, size, date, deadline, translation) {
   this.name = name;
   this.status = status;
   this.size = size;
   this.date = date;
   this.deadline = deadline;
+  this.translation = translation;
 }
 
-var firstFile = new RequestForTranslation("Tiedosto", "under work", 500, "2017-11-13", "2017-11-31");
-var secondFile = new RequestForTranslation("File", "waiting", 42, "2017-11-23", "2017-12-31");
-var thirdFile = new RequestForTranslation("Form", "waiting", 420, "2017-01-23", "2018-01-31");
+var firstFile = new RequestForTranslation("Tiedosto", "under work", 500, "2017-11-13", "2017-11-31", "");
+var secondFile = new RequestForTranslation("File", "waiting", 42, "2017-11-23", "2017-12-31", "");
+var thirdFile = new RequestForTranslation("Form", "waiting", 420, "2017-01-23", "2018-01-31", "");
 
 // All the rows for the translation table
 var rows = [firstFile, secondFile, thirdFile];
 // The keys for the objects that make up the rows
-var rowKeys = ['name', 'status', 'size', 'date', 'deadline'];
+var rowKeys = ['name', 'status', 'size', 'date', 'deadline', 'translation'];
 
 /* Recreates the translation table
   See: sortBy */
@@ -87,6 +88,7 @@ function refresh() {
   // Insert each row into the table
   var ind = 0;
   rows.forEach(function(item){
+    item.translation = "Lorem ipsum I'm the text from " + item.name + " but already translated (a bit) into your first language!";
     $('tbody').append('<tr onclick="tableClick(' + ind + '); show(\'page2\')"><td>' + item.name + '</td><td>' +
     item.status + '</td><td>' + item.size + '</td><td>' + item.date + '</td><td>' +
     item.deadline + '</td></tr>');
@@ -98,7 +100,13 @@ function refresh() {
 function tableClick(index) {
   $("#original .card-text").text("Lorem ipsum I'm text in a foreign language from the file " + rows[index].name + "!");
   $("#original .card-title").text(rows[index].name);
-  $("#translation textarea").text("Lorem ipsum I'm the text from " + rows[index].name + " but already translated (a bit) into your first language!");
+  $("#translation textarea").val(rows[index].translation);
+  // Changes the save-button to actually save the translation and show the success alert
+  $("#translation #save").attr('onclick', "saveTranslation(" + index + "); showAlert('saveSuccess', true)");
+}
+
+function saveTranslation(index) {
+  rows[index].translation = $("#translation textarea").val();
 }
 
 /* Sort the Array 'rows' based on the chosen column
