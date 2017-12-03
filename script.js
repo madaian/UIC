@@ -2,14 +2,27 @@
 
 // On page load
 $(document).ready(function(){
-  refresh();
+  // Set the language changing button to change the language
+  $("#languages a").each(function (id) {
+    $(this).attr('onclick', "changeLanguage(" + id + ")");
+  });
+  // Show the table in order by deadline by default
+  sortBy(4);
 });
 
 /* Show() the contents of the div whose id is passed as a parameter,
    hide the rest of the "page" divs.
    Assumes there are max navbar link amount of pages which are in order. */
 function show(shown) {
-  // TODO: hide navbar in login view
+  /* Hide navbar navigation links in login view & have the brand show the login page.
+     Else show the links and have the brand navigate to the translation table. */
+  if (shown === "login") {
+    $("#brand-nav").attr('onclick', "show('login')");
+    $("#navbarResponsive ul").addClass('hidden');
+  } else {
+    $("#brand-nav").attr('onclick', "show('page1')");
+    $("#navbarResponsive ul").removeClass('hidden');
+  }
   // Loop through each div marked as main content
   $("div[role='main']").each(function(i) {
     // Make a string to find the page's link in the navbar
@@ -75,8 +88,20 @@ var firstFile = new RequestForTranslation("Tiedosto", "under work", 500, "2017-1
 var secondFile = new RequestForTranslation("File", "waiting", 42, "2017-11-23", "2017-12-31", "");
 var thirdFile = new RequestForTranslation("Form", "waiting", 420, "2017-01-23", "2018-01-31", "");
 
+var chiFirst = new RequestForTranslation("Chinese Tiedosto", "waiting", 500, "2017-11-13", "2017-11-31", "");
+var chiSecond = new RequestForTranslation("Chinese File", "under work", 42, "2017-11-23", "2017-12-31", "");
+var chiThird = new RequestForTranslation("Chinese Form", "waiting", 420, "2017-01-23", "2018-01-31", "");
+var chiFourth = new RequestForTranslation("Chinese Document", "under work", 26, "2017-03-07", "2018-05-21", "");
+
+var finRows = [firstFile, secondFile, thirdFile];
+var chiRows = [chiFirst, chiSecond, chiThird, chiFourth];
+
+function changeLanguage(ind) {
+  // TODO: changing between languages so that saving still works
+}
+
 // All the rows for the translation table
-var rows = [firstFile, secondFile, thirdFile];
+var rows = finRows;
 // The keys for the objects that make up the rows
 var rowKeys = ['name', 'status', 'size', 'date', 'deadline', 'translation'];
 
@@ -98,11 +123,13 @@ function refresh() {
 
 // Selects a translation to show when a row in the table is clicked
 function tableClick(index) {
+  $("#trans-title").text("Translation of " + rows[index].name);
   $("#original .card-text").text("Lorem ipsum I'm text in a foreign language from the file " + rows[index].name + "!");
-  $("#original .card-title").text(rows[index].name);
   $("#translation textarea").val(rows[index].translation);
   // Changes the save-button to actually save the translation and show the success alert
   $("#translation #save").attr('onclick', "saveTranslation(" + index + "); showAlert('saveSuccess', true)");
+  // Changes the submit-button to save the translation, move to the front page and show a success message
+  $("#translation #trans-submit").attr('onclick', "saveTranslation(" + index + "); show('page1'); showAlert('submitSuccess', true)");
 }
 
 function saveTranslation(index) {
