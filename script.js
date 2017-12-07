@@ -1,19 +1,58 @@
 /* Code for the group assignment */
 
+// Hardcoded user profile data
+var userProfile = {
+  "username" : "TiinaT",
+  "password" : "1234",
+  "firstname" : "Tiina",
+  "familyname" : "Teekkari",
+  "nickname" : "Tite",
+  "email" : "tiinat@example.com",
+  "languages" : ["Chinese", "Finnish", "Swedish"],
+  "native" : "English"
+};
+
+// Hardcoded possible languages in alphabetical order
+var allLanguages = ["Arabic", "Chinese", "English", "Estonian", "Finnish", "French", "Swedish"];
+
 // On page load
 $(document).ready(function(){
-  // Set the language changing button to change the language
-  $("#languages a").each(function (id) {
-    $(this).attr('onclick', "changeLanguage(" + id + ")");
-  });
+  // Add languages to the language changing things
+  allLanguages.forEach(addLanguage);
+  // Fill in user profile page
+  $('#cred-username').attr('placeholder', userProfile.username);
+  $('#firstname').attr('placeholder', userProfile.firstname);
+  $('#familyname').attr('placeholder', userProfile.familyname);
+  $('#nickname').attr('placeholder', userProfile.nickname);
+  $('#emailaddress').attr('placeholder', userProfile.email);
   // Show the table in order by deadline by default
   sortBy(4);
 });
+
+function addLanguage(lang, ind) {
+  // Add known languages into translation table and select them in profile source language selector
+  if (userProfile.languages.includes(lang) || userProfile.native === lang) {
+    $('#sourceLanguages').append("<option selected>" + lang + "</option>");
+    $('#languages').append('<a class="dropdown-item" onclick="changeLanguage(' + ind + ')" href="#">' + lang + '</a>');
+  } else {
+    $('#sourceLanguages').append("<option>" + lang + "</option>");
+  }
+  // Add (and select native) language to the profile target language selector
+  if (userProfile.native === lang) {
+    $('#targetLanguages').append("<option selected>" + lang + "</option>");
+  } else {
+    $('#targetLanguages').append("<option>" + lang + "</option>");
+  }
+}
 
 /* Show() the contents of the div whose id is passed as a parameter,
    hide the rest of the "page" divs.
    Assumes there are max navbar link amount of pages which are in order. */
 function show(shown) {
+  // Resets every selection in the profile forms
+  $("#formcards form").each(function () {
+    $(this)[0].reset();
+  });
   /* Hide navbar navigation links in login view & have the brand show the login page.
      Else show the links and have the brand navigate to the translation table. */
   if (shown === "login") {
@@ -61,17 +100,28 @@ function showAlert(id, bool) {
 /* "Validate" login credentials.
    Hint for text fields from JS school:
    https://www.w3schools.com/js/tryit.asp?filename=tryjs_validation_js */
-function validateForm() {
+function validateLoginForm() {
   var x = $("#loginform #username").val();
   var y = $("#loginform #passwd").val();
-  if (x == "" || y == "") {
-    showAlert('logoutSuccess', false);
-    showAlert('loginFail', true);
-  } else {
+  // Login only if the credentials from the userProfile are used
+  if (x == userProfile.username && y == userProfile.password) {
     // Reset the form fields and navigate to the front page
     $("#loginform")[0].reset();
     show('page1');
+  } else {
+    showAlert('logoutSuccess', false);
+    showAlert('loginFail', true);
   }
+
+  // Uncomment for easier development
+  // if (x == "" || y == "") {
+  //   showAlert('logoutSuccess', false);
+  //   showAlert('loginFail', true);
+  // } else {
+  //   // Reset the form fields and navigate to the front page
+  //   $("#loginform")[0].reset();
+  //   show('page1');
+  // }
 }
 
 // Create translation file rows
@@ -81,7 +131,11 @@ function RequestForTranslation(name, status, size, date, deadline, translation) 
   this.size = size;
   this.date = date;
   this.deadline = deadline;
-  this.translation = translation;
+  this.translation = "Lorem ipsum I'm the text from " + this.name + " but already translated (a bit) into your first language!";
+}
+
+function changeTranslation(request, trans) {
+  request.translation = trans;
 }
 
 var firstFile = new RequestForTranslation("Tiedosto", "under work", 500, "2017-11-13", "2017-11-31", "");
@@ -95,15 +149,21 @@ var chiFourth = new RequestForTranslation("Chinese Document", "under work", 26, 
 
 var finRows = [firstFile, secondFile, thirdFile];
 var chiRows = [chiFirst, chiSecond, chiThird, chiFourth];
-
-function changeLanguage(ind) {
-  // TODO: changing between languages so that saving still works
-}
-
-// All the rows for the translation table
+// All the rows for the translation table; Starting with Finnish
 var rows = finRows;
 // The keys for the objects that make up the rows
 var rowKeys = ['name', 'status', 'size', 'date', 'deadline', 'translation'];
+
+// Change which requests to show in the table
+function changeLanguage(ind) {
+  // We only can swap between "Chinese" and "Finnish"
+  if (ind == 4) {
+    rows = finRows;
+  } else {
+    rows = chiRows;
+  }
+  sortBy(4);
+}
 
 /* Recreates the translation table
   See: sortBy */
@@ -113,7 +173,6 @@ function refresh() {
   // Insert each row into the table
   var ind = 0;
   rows.forEach(function(item){
-    item.translation = "Lorem ipsum I'm the text from " + item.name + " but already translated (a bit) into your first language!";
     $('tbody').append('<tr onclick="tableClick(' + ind + '); show(\'page2\')"><td>' + item.name + '</td><td>' +
     item.status + '</td><td>' + item.size + '</td><td>' + item.date + '</td><td>' +
     item.deadline + '</td></tr>');
@@ -133,7 +192,8 @@ function tableClick(index) {
 }
 
 function saveTranslation(index) {
-  rows[index].translation = $("#translation textarea").val();
+  changeTranslation(rows[index], $("#translation textarea").val());
+  // rows[index].translation = $("#translation textarea").val();
 }
 
 /* Sort the Array 'rows' based on the chosen column

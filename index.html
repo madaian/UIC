@@ -65,9 +65,6 @@
                 Original language
               </button>
               <div id="languages" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" onclick="" href="#">Chinese</a>
-                <a class="dropdown-item" onclick="" href="#">Finnish</a>
-                <a class="dropdown-item" onclick="" href="#">Swedish</a>
               </div>
             </div>
           </div>
@@ -229,7 +226,7 @@
             <label for="passwd">Password</label>
             <input type="password" class="form-control" id="passwd" placeholder="Enter password">
           </div>
-          <button type="submit" class="btn btn-primary" onclick="validateForm()">Log in</button>
+          <button type="submit" class="btn btn-primary" onclick="validateLoginForm()">Log in</button>
         </form>
 
       </div>
@@ -238,13 +235,150 @@
     <!-- Profile page -->
     <div id="profile" role="main" class="container-fluid main-content hidden">
       <div class="container">
-        <h1 class="my-4">Your profile</h1>
+        <div class="row my-4">
+          <div class="col-6">
+            <h1 class="">Your profile</h1>
+          </div>
+          <div class="col-6 text-right">
+            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#help-profile-modal">
+              Help
+            </button>
+          </div>
+        </div>
+
+        <!-- Profile page help modal -->
+        <div class="modal fade" id="help-profile-modal" tabindex="-1" role="dialog" aria-labelledby="help-profile-modal-label" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="profile-main-modal-label">Profile - help</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <p><h6>Login information</h6> Username and password are
+                used for login to the CrowdLand application.
+                <p><h6>User information</h6> Name and email
+                address are background information that is not shown to the other
+                users. Only nickname is shown to other users. It is used for
+                feedback.
+                Nickname can be different
+                than the username used for login.
+                <p><h6>Source and target languages</h6> Select source
+                languages that are shown in translation request list. The target
+                language should be your mother tongue. Translations should be done
+                from other languages to your mother tongue in order to provide
+                quality translations.</p>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="formcards" role="tablist">
+          <div class="card">
+            <div class="card-header" role="tab" id="headingOne">
+              <h4 class="mb-0">
+                <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Login information
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+              <div class="card-body">
+                <form id="credentials-form" onsubmit="return false">
+                  <div class="form-group">
+                    <label for="cred-username">Username</label>
+                    <input type="text" class="form-control" id="cred-username" placeholder="">
+                  </div>
+                  <div class="form-group">
+                    <label for="cred-passwd">Password</label>
+                    <input type="password" class="form-control" id="cred-passwd" placeholder="Enter password">
+                    <input type="password" class="form-control" id="cred-confirm-passwd" placeholder="Re-enter password">
+                  </div>
+                  <button type="submit" class="btn btn-success" onclick="">Save</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header" role="tab" id="headingTwo">
+              <h4 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  User information
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="card-body">
+                <form id="info-form" onsubmit="return false">
+                  <div class="form-group">
+                    <label for="firstname">First name</label>
+                    <input type="text" class="form-control" id="firstname" placeholder="">
+                  </div>
+                  <div class="form-group">
+                    <label for="familyname">Family name</label>
+                    <input type="text" class="form-control" id="familyname" placeholder="">
+                  </div>
+                  <div class="form-group">
+                    <label for="nickname">Nickname</label>
+                    <input type="text" class="form-control" id="nickname" placeholder="">
+                  </div>
+                  <div class="form-group">
+                    <label for="emailaddress">Email address</label>
+                    <input type="email" class="form-control" id="emailaddress" placeholder="">
+                  </div>
+                  <button type="submit" class="btn btn-success" onclick="">Save</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header" role="tab" id="headingThree">
+              <h4 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Language settings
+                </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="card-body">
+                <form id="language-form" onsubmit="return false">
+                  <div class="form-group">
+                    <label for="sourceLanguages">Source languages</label>
+                    <select multiple class="form-control" id="sourceLanguages" aria-describedby="selectionHelpBlock">
+                    </select>
+                    <small id="selectionHelpBlock" class="form-text text-muted">
+                      Select multiple languages by holding down the Ctrl or Shift buttons.
+                    </small>
+                  </div>
+                  <div class="form-group">
+                    <label for="targetLanguages">Target language (mother tongue)</label>
+                    <select class="form-control" id="targetLanguages">
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-success" onclick="">Save</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container text-center">
+        <button class="btn btn-primary my-5" onclick="show('page1')">Back</button>
       </div>
     </div>
 
     <footer class="footer">
       <div class="container text-center">
-        <span class="text-muted">This footer will always stay at the bottom of the page (it's sticky)</span>
+        <span class="text-muted">Mockup crowdsourced translation page for CS-E5220 - User Interface Construction</span>
       </div>
     </footer>
 

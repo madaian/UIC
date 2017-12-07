@@ -206,147 +206,140 @@
 
     <!-- Profile page -->
     <div id="profile" role="main" class="container-fluid main-content hidden">
-    <div class="container">
-    <div class="row my-4">
-    <div class="col-6">
-      <h1 class="">Your profile</h1>
-    </div>
-    <div class="col-6 text-right">
+      <div class="container">
+        <div class="row my-4">
+          <div class="col-6">
+            <h1 class="">Your profile</h1>
+          </div>
+          <div class="col-6 text-right">
             <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#help-profile-modal">
               Help
             </button>
-    </div>
-    </div>
-    
-    <!-- Profile page help modal -->
-    <div class="modal fade" id="help-profile-modal" tabindex="-1" role="dialog" aria-labelledby="help-profile-modal-label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <div class="modal-header">
+          </div>
+        </div>
+
+        <!-- Profile page help modal -->
+        <div class="modal fade" id="help-profile-modal" tabindex="-1" role="dialog" aria-labelledby="help-profile-modal-label" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
                 <h5 class="modal-title" id="profile-main-modal-label">Profile - help</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-	      <div class="modal-body">
-		<p><h6>User information</h6> Username and password are
-    used for login to the CrowdLand application.
-		<p><h6>Background information</h6> Name and email
-    address are background information that is not shown to the other
-    users. Only nickname is shown to other users. It is used for
-		feedback.
-		Nickname can be different
-    than the username used for login.
+
+              <div class="modal-body">
+            		<p><h6>User information</h6> Username and password are
+                used for login to the CrowdLand application.
+            		<p><h6>Background information</h6> Name and email
+                address are background information that is not shown to the other
+                users. Only nickname is shown to other users. It is used for
+            		feedback.
+            		Nickname can be different
+                than the username used for login.
                 <p><h6>Source and target languages</h6> Select source
-    languages that are shown in translation request list. The target
-    language should be your mother tongue. Translations should be done
-    from other languages to your mother tongue in order to provide
-    quality translations.</p>
+                languages that are shown in translation request list. The target
+                language should be your mother tongue. Translations should be done
+                from other languages to your mother tongue in order to provide
+                quality translations.</p>
                 <p><h6>Advanced features: Add a language</h6>
-                  You can add other languages to the crowdsourced pool
-        of languages if you know open source machine translation tool
-        between the new language and some of the languages already
-        listed in languages.
-		</p>
-	      </div>
-	      <div class="modal-footer">
-		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-	      </div>
-	      </div>
-	      </div>
-	      </div>
-  <div class="form-group"><h3>User information</h3>
+                You can add other languages to the crowdsourced pool
+                of languages if you know open source machine translation tool
+                between the new language and some of the languages already
+                listed in languages.
+            		</p>
+        	    </div>
 
-          <form id="loginform" onsubmit="return false">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" placeholder="TiinaT">
-          </div>
-          <div class="form-group">
-            <label for="passwd">Password</label>
-            <input type="password" class="form-control" id="passwd" placeholder="Enter password">
-            <input type="password" class="form-control" id="passwd" placeholder="Re-enter password">
-          </div>
-          <button type="submit" class="btn btn-success" onclick="validateForm()">Save</button>
-        </form>
-</div>
-	      
-  <div class="form-group"><h3>Background information</h3>
-    <label for="firstname">First name</label>
-    <input type="text" class="form-control" id="firstname" placeholder="Tiina">
-    <label for="familyname">Family name</label>
-    <input type="text" class="form-control" id="familyname"
-    placeholder="Teekkari">
-    <label for="nickname">Nick name</label>
-    <input type="text" class="form-control" id="nickname" placeholder="Tite">
-
-    <label for="emailaddress">Email address</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="tiinat@example.com">
-          <button type="submit" class="btn btn-success" onclick="validateForm()">Save</button>
-  </div>
-
-
-	      
-  <div class="form-group"><h3>Source and target languages</h3>
-
-    <label for="sourceLanguages">Source languages</label>
-    <select multiple class="form-control" id="exampleFormControlSelect2">
-      <option>Chinese</option>
-      <option>English</option>
-      <option>Finnish</option>
-      <option>French</option>
-      <option>Swedish</option>
-    </select>
-  </div>
-
-    <div class="form-group">
-    <label for="exampleFormControlSelect1">Target language (mother tongue)</label>
-    <select class="form-control" id="exampleFormControlSelect1">
-      <option>Chinese</option>
-      <option>English</option>
-      <option>Finnish</option>
-      <option>French</option>
-      <option>Swedish</option>
-    </select>
-  </div>
-          <button type="submit" class="btn btn-success" onclick="validateForm()">Save</button>
-
-
-  
-    <div class="form-group"><h3>Advanced features</h3>
-    <label for="addlanguage">Suggest adding a new
-    language. Give the language and URL for its machine translation tool.</label>
-    <textarea class="form-control" id="addlanguage"
-      rows="3"></textarea>
-                    <div class="row">
-                <div class="col">
-                  <button id="addlanguage" type="submit" onclick="" class="btn btn-primary">Cancel</button>
-                </div>
-                <div class="col text-right">
-                  <button type="submit" onclick="" class="btn btn-success">Submit</button>
-                </div>
+              <div class="modal-footer">
+        		    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
               </div>
+            </div>
+          </div>
+        </div>
 
-  </div>
-</form>
-	      
+        <div class="form-group">
+          <h3>User information</h3>
+          <form id="credentials-form" onsubmit="return false">
+            <div class="form-group">
+              <label for="cred-username">Username</label>
+              <input type="text" class="form-control" id="cred-username" placeholder="TiinaT">
+            </div>
+            <div class="form-group">
+              <label for="cred-passwd">Password</label>
+              <input type="password" class="form-control" id="cred-passwd" placeholder="Enter password">
+              <input type="password" class="form-control" id="cred-confirm-passwd" placeholder="Re-enter password">
+            </div>
+            <button type="submit" class="btn btn-success" onclick="">Save</button>
+          </form>
+        </div>
 
-     </div>
-    </div>
+        <div class="form-group">
+          <h3>Background information</h3>
+          <form id="info-form" onsubmit="return false">
+            <div class="form-group">
+              <label for="firstname">First name</label>
+              <input type="text" class="form-control" id="firstname" placeholder="Tiina">
+            </div>
+            <div class="form-group">
+              <label for="familyname">Family name</label>
+              <input type="text" class="form-control" id="familyname" placeholder="Teekkari">
+            </div>
+            <div class="form-group">
+              <label for="nickname">Nickname</label>
+              <input type="text" class="form-control" id="nickname" placeholder="Tite">
+            </div>
+            <div class="form-group">
+              <label for="emailaddress">Email address</label>
+              <input type="email" class="form-control" id="emailaddress" placeholder="tiinat@example.com">
+            </div>
+            <button type="submit" class="btn btn-success" onclick="">Save</button>
+          </form>
+        </div>
 
+        <div class="form-group">
+          <h3>Source and target languages</h3>
+          <form id="language-form" onsubmit="return false">
+            <div class="form-group">
+              <label for="sourceLanguages">Source languages</label>
+              <select multiple class="form-control" id="sourceLanguages">
+                <option>Chinese</option>
+                <option>English</option>
+                <option>Finnish</option>
+                <option>French</option>
+                <option>Swedish</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="targetLanguages">Target language (mother tongue)</label>
+              <select class="form-control" id="targetLanguages">
+                <option>Chinese</option>
+                <option>English</option>
+                <option>Finnish</option>
+                <option>French</option>
+                <option>Swedish</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success" onclick="">Save</button>
+          </form>
+        </div>
 
-
-
-
-
-
-
-
-
-
-
-
-      
+        <div class="form-group">
+          <h3>Advanced features</h3>
+          <form id="advanced-form" onsubmit="return false">
+            <label for="addlanguage">Suggest adding a new language. Give the language and URL for its machine translation tool.</label>
+            <textarea class="form-control" id="addlanguage" rows="3"></textarea>
+            <div class="row">
+              <div class="col">
+                <button id="addlanguage" type="submit" onclick="" class="btn btn-primary">Cancel</button>
+              </div>
+              <div class="col text-right">
+                <button type="submit" onclick="" class="btn btn-success">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
     <footer class="footer">
