@@ -125,10 +125,10 @@ function validateLoginForm() {
 }
 
 // Create translation file rows
-function RequestForTranslation(name, status, size, date, deadline, translation) {
+function RequestForTranslation(name, status, wordcount, date, deadline, translation) {
   this.name = name;
   this.status = status;
-  this.size = size;
+  this.wordcount = wordcount;
   this.date = date;
   this.deadline = deadline;
   this.translation = "Lorem ipsum I'm the text from " + this.name + " but already translated (a bit) into your first language!";
@@ -152,7 +152,7 @@ var chiRows = [chiFirst, chiSecond, chiThird, chiFourth];
 // All the rows for the translation table; Starting with Finnish
 var rows = finRows;
 // The keys for the objects that make up the rows
-var rowKeys = ['name', 'status', 'size', 'date', 'deadline', 'translation'];
+var rowKeys = ['name', 'status', 'wordcount', 'date', 'deadline', 'translation'];
 
 // Change which requests to show in the table
 function changeLanguage(ind) {
@@ -174,7 +174,7 @@ function refresh() {
   var ind = 0;
   rows.forEach(function(item){
     $('tbody').append('<tr onclick="tableClick(' + ind + '); show(\'page2\')"><td>' + item.name + '</td><td>' +
-    item.status + '</td><td>' + item.size + '</td><td>' + item.date + '</td><td>' +
+    item.status + '</td><td>' + item.wordcount + '</td><td>' + item.date + '</td><td>' +
     item.deadline + '</td></tr>');
     ind++;
   });

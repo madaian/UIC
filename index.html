@@ -88,6 +88,7 @@
               <div class="modal-body">
                 <p><h6>Select a document</h6> To select a document to translate, click on the corresponding row of the table.</p>
                 <p><h6>Sort translations</h6> To sort the translations, click on a Sort button in the table header.</p>
+                <!-- TODO: describe what the different values mean? -->
                 <p><h6>Select a language</h6>
                   To select the language of the original document, click on the Original language button above the table.</br>
                   To change the target language, change the language settings in your user profile.
@@ -104,11 +105,11 @@
           <table id="myTable" class="table table-striped table-bordered table-hover">
             <thead>
               <tr>
-                <th scope="col">Filename <button class="btn btn-sm btn-primary" aria-label="Sort by filename" onclick="sortBy(0)">Sort</button></th>
-                <th scope="col">Status <button class="btn btn-sm btn-primary" aria-label="Sort by status" onclick="sortBy(1)">Sort</button></th>
-                <th scope="col">Size <button class="btn btn-sm btn-primary" aria-label="Sort by size" onclick="sortBy(2)">Sort</button></th>
-                <th scope="col">Date <button class="btn btn-sm btn-primary" aria-label="Sort by date" onclick="sortBy(3)">Sort</button></th>
-                <th scope="col">Deadline <button class="btn btn-sm btn-primary" aria-label="Sort by deadline" onclick="sortBy(4)">Sort</button></th>
+                <th scope="col"><a role="button" href="#" aria-label="Sort by filename" onclick="sortBy(0)">Filename ▾</a></th>
+                <th scope="col"><a role="button" href="#" aria-label="Sort by status" onclick="sortBy(1)">Status ▾</a></th>
+                <th scope="col"><a role="button" href="#" aria-label="Sort by wordcount" onclick="sortBy(2)">Words ▾</a></th>
+                <th scope="col"><a role="button" href="#" aria-label="Sort by request date" onclick="sortBy(3)">Request date ▾</a></th>
+                <th scope="col"><a role="button" href="#" aria-label="Sort by deadline" onclick="sortBy(4)">Deadline ▾</a></th>
               </tr>
             </thead>
             <tbody>
