@@ -30,17 +30,20 @@ $(document).ready(function(){
 });
 
 function addLanguage(lang, ind) {
-  // Add known languages into translation table and select them in profile source language selector
-  if (userProfile.languages.includes(lang) || userProfile.native === lang) {
-    $('#sourceLanguages').append("<option selected>" + lang + "</option>");
+  if (userProfile.languages.includes(lang)) {
+    // Add known languages into translation table
     $('#languages').append('<a class="dropdown-item" onclick="changeLanguage(' + ind + ')" href="#">' + lang + '</a>');
-  } else {
-    $('#sourceLanguages').append("<option>" + lang + "</option>");
-  }
-  // Add (and select native) language to the profile target language selector
-  if (userProfile.native === lang) {
+    // Select them in profile source language selector & add as a possible target language
+    $('#sourceLanguages').append("<option selected>" + lang + "</option>");
+    $('#targetLanguages').append("<option>" + lang + "</option>");
+  } else if (userProfile.native === lang) {
+    // Only add native language in the profile language selector (selected), not in the translation table
+    $('#sourceLanguages').append("<option selected>" + lang + "</option>");
+    // Add and select native language in the profile target language selector
     $('#targetLanguages').append("<option selected>" + lang + "</option>");
   } else {
+    // The rest are unselected in the profile language selectors
+    $('#sourceLanguages').append("<option>" + lang + "</option>");
     $('#targetLanguages').append("<option>" + lang + "</option>");
   }
 }
